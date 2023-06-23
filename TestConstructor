@@ -1,0 +1,158 @@
+package edu.westga.cs1301.business.test.employee;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+import edu.westga.cs1301.business.model.Employee;
+
+/**
+ * This test was designed to test the constructor in the 
+ * employee class and helps make sure everything works 
+ * when put together correctly and incorrectly
+ * 
+ * @author jb00645
+ *
+ */
+class TestConstructor {
+
+	@Test
+	public void testWithNullName() {
+		//Assert
+		assertThrows(IllegalArgumentException.class, ()->{
+			new Employee(null, "job title", 1980, 90.0, 4);
+		});
+	}
+	
+	@Test
+	//Assert
+	public void testWithEmptyName() {
+		assertThrows(IllegalArgumentException.class, ()->{
+			new Employee("", "job title", 1980, 90.0, 4);
+		});
+	}
+	
+	@Test
+
+	public void testWithNullJobTitle() {
+		//Assert
+		assertThrows(IllegalArgumentException.class, ()->{
+			new Employee("Jacob", null, 1980, 90.0, 4);
+		});
+	}
+	
+	@Test
+	public void testWithEmptyJobTitle() {
+		//Assert
+		assertThrows(IllegalArgumentException.class, ()->{
+			new Employee("Jacob", "", 1980, 90.0, 4);
+		});
+	}
+	
+	@Test
+	public void testForOneBelowYearBoundry() {
+		//Assert
+		assertThrows(IllegalArgumentException.class, ()->{
+			new Employee("Jacob", "job title", 1969, 90.0, 4);
+		});
+	}
+	
+	@Test
+	public void testAtYearBoundry() {
+		//Arrange && Act
+		Employee one = new Employee("Jacob", "job title", 1970, 90.0, 4);
+		//Assert
+		assertEquals(1970, one.getYearOfHire());
+	}
+	
+	@Test
+	public void testOneAboveYearBoundry() {
+		//Arrange && Act
+		Employee one = new Employee("Jacob", "job title", 1971, 90.0, 4);
+		//Assert
+		assertEquals(1971, one.getYearOfHire());
+	}
+	
+	@Test
+	public void testForAHundredthBelowHourlyWageBoundry() {
+		//Assert
+		assertThrows(IllegalArgumentException.class, ()->{
+			new Employee("Jacob", "job title", 1971, 7.24, 4);
+		});
+	}
+	
+	@Test
+	public void testAtHourlyWageBoundry() {
+		//Arrange && Act
+		Employee one = new Employee("Jacob", "job title", 1971, 7.25, 4);
+		//Assert
+		assertEquals(7.25, one.getHourlyWage());
+	}
+	
+	@Test
+	public void testAHundredthAboveHourlyWageBoundry() {
+		//Arrange && Act
+		Employee one = new Employee("Jacob", "job title", 1971, 7.26, 4);
+		//Assert
+		assertEquals(7.26, one.getHourlyWage());
+	}
+	
+	@Test
+	public void testForOneBelowMinRatingBoundry() {
+		//Assert
+		assertThrows(IllegalArgumentException.class, ()->{
+			new Employee("Jacob", "job title", 1971, 7.26, 0);
+		});
+	}
+	
+	@Test
+	public void testAtMinRatingBoundry() {
+		//Arrange && Act
+		Employee one = new Employee("Jacob", "job title", 1971, 7.26, 1);
+		//Assert
+		assertEquals(1, one.getRating());
+	}
+	
+	@Test
+	public void testOneAboveMinRatingBoundry() {
+		//Arrange && Act
+		Employee one = new Employee("Jacob", "job title", 1971, 7.26, 2);
+		//Assert
+		assertEquals(2, one.getRating());
+	}
+	
+	@Test
+	public void testForOneAboveMaxRatingBoundry() {
+		//Assert
+		assertThrows(IllegalArgumentException.class, ()->{
+			new Employee("Jacob", "job title", 1971, 7.26, 6);
+		});
+	}
+	
+	@Test
+	public void testAtMaxRatingBoundry() {
+		//Assert
+		Employee one = new Employee("Jacob", "job title", 1971, 7.26, 5);
+		assertEquals(5, one.getRating());
+	}
+	
+	@Test
+	public void testOneBelowMaxRatingBoundry() {
+		//Arrange && Act
+		Employee one = new Employee("Jacob", "job title", 1971, 7.26, 4);
+		//Assert
+		assertEquals(4, one.getRating());
+	}
+	
+	@Test
+	public void testIfAllValidData() {
+		//Arrange && Act
+		Employee one = new Employee("Jacob", "job title", 1971, 7.26, 3);
+		//Assert
+		assertEquals("Jacob", one.getName());
+		assertEquals("job title", one.getJobTitle());
+		assertEquals(1971, one.getYearOfHire());
+		assertEquals(7.26, one.getHourlyWage());
+		assertEquals(3, one.getRating());
+	}
+}
