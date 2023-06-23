@@ -1,0 +1,245 @@
+package edu.westga.cs1301.business.model;
+
+import java.util.ArrayList;
+
+/**
+ * Creates a company and uses the employee class
+ * 
+ * @author jb00645
+ *
+ */
+public class Company {
+	//Constant
+	public static final int EARLIEST_YEAR_NUMBER = 1970;
+	//Instance 
+	private String name;
+	private ArrayList<Employee> employees; 
+	private ArrayList<Employee> ratingList;
+	
+	/**
+	 * makes sure that the companies name is assigned properly 
+	 * 
+	 * @precondition name != null && name != empty
+	 * 
+	 * @postcondition this.name = name
+	 * 
+	 * @param name the companies name
+	 */
+	public Company(String name) {
+		if (name==null) {
+			throw new IllegalArgumentException("the name can not be null");
+		}
+		if (name.equals("")) {
+			throw new IllegalArgumentException("the name can not be empty");
+		}
+		this.name=name;
+		this.employees = new ArrayList<>();
+	}
+	
+	/**
+	 * made to return the name of the company 
+	 * 
+	 * @return name the name of the company
+	 */
+	public String getName() {
+		return this.name;
+	}
+	
+	/**
+	 * made to return the list employees
+	 * 
+	 * @return employees list
+	 */
+	public ArrayList<Employee> getEmployeeList(){
+		return this.employees;
+	}
+	
+	/**
+	 * made to return the size of the list of employees
+	 * 
+	 * @return amount of the employees
+	 */
+	public int size() {
+		int amount = this.employees.size();
+		return amount;
+	}
+	
+	/**
+	 * adds the employee into the list and lets the user 
+	 * know it has been put into the list
+	 * 
+	 * @precondition theEmployee != null
+	 * 
+	 * @param theEmployee a list of employees in a company 
+	 * @return a boolean if the employee was added to the list
+	 */
+	public boolean addEmployee(Employee theEmployee) {
+		if (theEmployee==null) {
+			throw new IllegalArgumentException("the employee can not be null");
+		}
+		int sizeOfList= this.employees.size();
+		this.employees.add(theEmployee);
+		if (sizeOfList < this.employees.size()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	/**
+	 * uses and index to find an employee 
+	 * 
+	 * @precondition index >= 0 && index <= the list size
+	 * 
+	 * @param index the index wanted to find the employee
+	 * @return worker or the employee object by using the idex
+	 */
+	public Employee getEmployee(int index) {
+		if (index < 0) {
+			throw new IllegalArgumentException("index can not be less than 0");
+		}
+		if (index > this.employees.size()-1) {
+			throw new IllegalArgumentException("index can not be bigger than the list length");
+		}
+		Employee worker;
+		worker = this.employees.get(index);
+		return worker;
+	}
+
+	/**
+	 * adds all of the hourly wages together and divided by 
+	 * the list size and returns the average
+	 * 
+	 * @precondition employees size > 0
+	 *  
+	 * @return ave of the hourly wages put together
+	 */
+	public double averageHourlyWage() {
+		if (this.employees.size() <= 0) {
+			throw new IllegalArgumentException("there needs to be more than 0 Employees in the list");
+		}
+		double ave = 0;
+		for (int i = 0; i < employees.size();i++) {
+			Employee worker = this.getEmployee(i);
+			ave = ave + worker.getHourlyWage();
+		}
+		ave = ave / this.employees.size();
+		return ave;
+	}
+
+	/**
+	 * made to return the newest employee with the highest year
+	 * 
+	 * @precondition this.employees.size() != 0
+	 * 
+	 * @return year of the most recent employee hired (aka highest year)
+	 */
+	public int getsMostRecentEmployeeYear() {
+		if (this.employees.size() == 0) {
+			throw new IllegalArgumentException("there needs to be more than 0 Employees in the list");
+		}
+		int newestYearNum = EARLIEST_YEAR_NUMBER - 1;
+		for (Employee employees : employees) {
+			if (newestYearNum <= employees.getYearOfHire()) {
+				newestYearNum = employees.getYearOfHire();
+			}
+		}
+		return newestYearNum;		
+	}	
+
+	/**
+	 * takes a given year and returns how many were hired in the given year
+	 * 
+	 * @param yearNum the year number being looked for
+	 * 
+	 * @return employeesHiredInGivenYear and how many employees were hired that year given
+	 */
+	public int employeesHiredForYear(int yearNum) {
+		if(yearNum < EARLIEST_YEAR_NUMBER) {
+			throw new IllegalArgumentException("can not be below the earliest year number boundry");
+		}
+		int employeesHiredInGivenYear= 0;
+		for (int i = 0; i < employees.size(); i++) {
+			Employee worker = this.getEmployee(i);
+			int workerStartYear = worker.getYearOfHire();
+			if (workerStartYear == yearNum) {
+				employeesHiredInGivenYear = employeesHiredInGivenYear + 1;
+			}
+		}
+		return employeesHiredInGivenYear;
+	}
+	
+	/**
+	 * list all of the employees with the same rating that was given
+	 * 
+	 * @param ratingGiven an rating to use to search for all similar employees with the same rating
+	 * 
+	 * @return ratingList of everyone that had the same rating given
+	 */
+	public ArrayList<Employee> listOfAllEmployeesWithRatingGiven(int ratingGiven){
+		if (ratingGiven < Employee.MINIMUM_RATING || ratingGiven > Employee.MAXIMUM_RATING) {
+			throw new IllegalArgumentException("rating given is out of the boundry of ratings");
+		}
+		if (employees.size() == 0) {
+			throw new IllegalArgumentException("there need to be some employees");
+		}
+		this.ratingList = new ArrayList<>();
+		for (int i = 0; i < employees.size(); i ++) {
+			Employee worker = this.getEmployee(i);
+			int workerRating = worker.getRating();
+			if (workerRating == ratingGiven) {
+				ratingList.add(worker);
+			}	
+		}
+		return ratingList;
+	}
+	
+	/**
+	 * made to remove any employee if it has the minimum rating
+	 * 
+	 * @precondition employees.size != 0
+	 * 
+	 * @return ArrayList employee after removing all employees 
+	 * who underpreform
+	 */
+	public ArrayList<Employee> removeUnderPreformingMinimumRating(){
+		if (employees.size() == 0) {
+			throw new IllegalArgumentException("there need to be some employees");
+		}
+		for (int i = 0; i < employees.size(); i++) {
+			Employee worker = this.getEmployee(i);
+			int workerRating = worker.getRating();
+			if (workerRating == Employee.MINIMUM_RATING) {
+				employees.remove(worker);
+			}
+		}
+		return employees;
+	}
+	
+	/**
+	 * finds the year the company grew the most with employees, 
+	 * it uses the first largest year if there are mutiple
+	 * 
+	 * @precondition employee.size != 0
+	 * 
+	 * @return yearGrownTheMost which is the year the company has the greatest amount of employees join
+	 */
+	public int yearCompanyGrewTheMost() {
+		if (employees.size() == 0) {
+			throw new IllegalArgumentException("must be greater than the minimum year boundry");
+		}
+		int tempVariableForFindingYears = 0;
+		int secondTempVariableForFindingYears = 0;
+		int yearGrownTheMost= 0;
+		int maxYear = this.getsMostRecentEmployeeYear();
+		for (int i = EARLIEST_YEAR_NUMBER; i < maxYear; i++) {
+			tempVariableForFindingYears = this.employeesHiredForYear(i);
+			if (tempVariableForFindingYears <= secondTempVariableForFindingYears) {
+				secondTempVariableForFindingYears = tempVariableForFindingYears;
+				yearGrownTheMost = i+1;
+			}
+		}
+		return yearGrownTheMost;
+	}	
+}
