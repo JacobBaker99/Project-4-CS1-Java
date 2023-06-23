@@ -1,0 +1,148 @@
+package edu.westga.cs1301.business.model;
+/**
+ * Creates an Employee with all of their descriptions
+ * 
+ * @author jb00645
+ *
+ */
+public class Employee {
+	//constants 
+	public static final double MINIMUM_WAGE = 7.25;
+	public static final int EARLIEST_YEAR_NUMBER = 1970;
+	public static final int MAXIMUM_RATING = 5;
+	public static final int MINIMUM_RATING = 1; 
+	//Instance 
+	private String name;
+	private String jobTitle;
+	private int yearOfHire;
+	private double hourlyWage;
+	private int rating;
+	
+	/**
+	 * Makes sure all conditions are right for program and gets the variables
+	 * 
+	 * @param name
+	 * @param jobTitle
+	 * @param yearOfHire
+	 * @param hourlyWage
+	 * @param rating
+	 * 
+	 * @precondition name != null && name != empty
+	 * @precondition job title != null && job title != empty
+	 * @precondition year of hire >= EARLIEST_YEAR_NUMBER
+	 * @precondition hourly wage >= minimum wage
+	 * @precondition rating >= MINIMUM_RATING && rating <= MAXIMUM_RATING
+	 * 
+	 * @postcondition this.name = name
+	 * @postcondition this.jobTitle = jobTitle
+	 * @postcondition this.yearOfHire = yearOfHire
+	 * @postcondition this.hourlyWage = hourlyWage
+	 * @postcondition this.rating = rating
+	 */
+	public Employee(String name, String jobTitle, int yearOfHire, double hourlyWage, int rating) {
+		if (name == null) {
+			throw new IllegalArgumentException("name can not be null");
+		}
+		if (name.equals("")) {
+			throw new IllegalArgumentException("name can not be empty");
+		}
+		if (jobTitle == null) {
+			throw new IllegalArgumentException("Job Title can not be null");
+		}
+		if (jobTitle.equals("")) {
+			throw new IllegalArgumentException("Job Title can not be empty");
+		}
+		if (yearOfHire < EARLIEST_YEAR_NUMBER) {
+			throw new IllegalArgumentException("year of hire must be later than 1970");
+		}
+		if (hourlyWage < MINIMUM_WAGE) {
+			throw new IllegalArgumentException("hourly wage must be more than minimum wage");
+		}
+		if (rating < MINIMUM_RATING || rating > 5) {
+			throw new IllegalArgumentException("rating must be between 1 and 5 inclusivly");
+		}
+		this.name = name;
+		this.jobTitle = jobTitle;
+		this.yearOfHire = yearOfHire;
+		this.hourlyWage = hourlyWage;
+		this.rating = rating; 
+	}*/
+	
+	/**
+	 * made to return just the name of an employee 
+	 * 
+	 * @return name the name of an employee
+	 */
+	public String getName() {
+		return this.name;
+	}
+	
+	/**
+	 * made to return just the year the employee was hired 
+	 * 
+	 * @return yearOfHire the year an employee was hired
+	 */
+	public int getYearOfHire() {
+		return this.yearOfHire;
+	}
+	
+	/**
+	 * assigns the hourly rating to this hourly rating for the employee
+	 * 
+	 * @postcondition this.hourlyWage == hourlyWage
+	 * 
+	 * @param hourlyWage the  hourly wage of an employee
+	 */
+	public void setHourlyWage(double hourlyWage) {
+		this.hourlyWage = hourlyWage;
+	}
+	
+	/**
+	 * made to return just the employees hourly wage 
+	 * 
+	 * @return rating the rating of an employee
+	 */
+	public double getHourlyWage() {
+		return this.hourlyWage;
+	}
+	
+	/**
+	 * assigns the job title to this job title for the employee
+	 * 
+	 * @postcondition this.jobTitle == jobTitle
+	 * 
+	 * @param jobTitle the job title of an employee
+	 */
+	public void setJobTitle(String jobTitle) {
+		this.jobTitle = jobTitle;
+	}
+	
+	/**
+	 * made to return just the job title 
+	 * 
+	 * @return job title the job title of an employee
+	 */
+	public String getJobTitle() {
+		return this.jobTitle;
+	}
+	
+	/**
+	 * assigns the rating to this rating for the employee
+	 * 
+	 * @postcondition this.rating == rating
+	 * 
+	 * @param rating the rating of an employee
+	 */
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+	
+	/**
+	 * made to return just the rating 
+	 * 
+	 * @return rating the rating of an employee
+	 */
+	public int getRating() {
+		return this.rating;
+	}
+}
