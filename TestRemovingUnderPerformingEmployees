@@ -1,0 +1,146 @@
+package edu.westga.cs1301.business.test.employee;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+import edu.westga.cs1301.business.model.Company;
+import edu.westga.cs1301.business.model.Employee;
+/**
+ * this test makes sure that the right employees
+ * are removed if they are the Minimum rating
+ * 
+ * @author jb00645
+ *
+ */
+class TestRemovingUnderPerformanceEmployees {
+	
+	@Test
+	public void testIfZeroEmployees() {
+		Company google = new Company("google");
+		assertThrows(IllegalArgumentException.class,()->{
+			google.removeUnderPreformingMinimumRating();
+		});	
+	}
+
+	@Test
+	public void testIfUnderPreformingEmployeeBeginning() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, Employee.MINIMUM_RATING);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 3);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 2);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		ArrayList<Employee> actual = new ArrayList<>();
+		actual.add(mad);
+		actual.add(jax);
+		actual.add(oli);
+		actual.add(mac);
+		//Assert
+		assertEquals(actual, google.removeUnderPreformingMinimumRating() );
+	}
+	
+	@Test
+	public void testIfUnderPreformingEmployeeMiddle() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 3);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, Employee.MINIMUM_RATING);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 2);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		ArrayList<Employee> actual = new ArrayList<>();
+		actual.add(jacob);
+		actual.add(mad);
+		//actual.add(jax);
+		actual.add(oli);
+		actual.add(mac);
+		//Assert
+		assertEquals(actual, google.removeUnderPreformingMinimumRating());
+	}
+	
+	@Test
+	public void testIfUnderPreformingEmployeeEnd() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 3);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 2);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, Employee.MINIMUM_RATING);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		ArrayList<Employee> actual = new ArrayList<>();
+		actual.add(jacob);
+		actual.add(mad);
+		actual.add(jax);
+		actual.add(oli);
+		//actual.add(mac);
+		//Assert
+		assertEquals(actual, google.removeUnderPreformingMinimumRating());
+	}
+	
+	@Test
+	public void testIfUnderPreformingMutipleEmployee() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, Employee.MINIMUM_RATING);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, Employee.MINIMUM_RATING);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		ArrayList<Employee> actual = new ArrayList<>();
+		//actual.add(jacob);
+		actual.add(mad);
+		//actual.add(jax);
+		actual.add(oli);
+		actual.add(mac);
+		//Assert
+		assertEquals(actual, google.removeUnderPreformingMinimumRating());
+	}
+	
+	@Test
+	public void testIfUnderPreformingNoneEmployee() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 3);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 3);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 2);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		ArrayList<Employee> actual = new ArrayList<>();
+		actual.add(jacob);
+		actual.add(mad);
+		actual.add(jax);
+		actual.add(oli);
+		actual.add(mac);
+		//Assert
+		assertEquals(actual, google.removeUnderPreformingMinimumRating());
+	}
+}
