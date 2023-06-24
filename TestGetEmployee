@@ -1,0 +1,130 @@
+package edu.westga.cs1301.business.test.employee;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+import edu.westga.cs1301.business.model.Company;
+import edu.westga.cs1301.business.model.Employee;
+/**
+ * test made sure that the getEmployee method gets the correct employee
+ * in the list and makes sure that the index can not be less than 0, 
+ * or more than the list length
+ * 
+ * @author jb00645
+ *
+ */
+class TestGetEmployee {
+
+	@Test
+	public void testIfIndexIsoneBelowMinBoundry() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 8.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 8.0, 4);
+		Employee oli = new Employee("oli", "job title", 1990, 8.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 8.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		// Assert
+		assertThrows(IllegalArgumentException.class, ()->{
+			google.getEmployee(-1);
+		});
+	}
+	
+	@Test
+	public void testIfIndexMinBoundry() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 8.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 8.0, 4);
+		Employee oli = new Employee("oli", "job title", 1990, 8.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 8.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		// Assert
+		assertEquals(jacob, google.getEmployee(0));
+	}
+	
+	@Test
+	public void testIfIndexIsoneAboveMinBoundry() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 8.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 8.0, 4);
+		Employee oli = new Employee("oli", "job title", 1990, 8.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 8.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		// Assert
+		assertEquals(mad, google.getEmployee(1));
+	}
+	
+	@Test
+	public void testIfIndexMaxBoundry() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 8.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 8.0, 4);
+		Employee oli = new Employee("oli", "job title", 1990, 8.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 8.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		// Assert
+		assertEquals(mac, google.getEmployee(4));
+	}
+	
+	@Test
+	public void testIfIndexIsoneBelowMaxBoundry() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 8.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 8.0, 4);
+		Employee oli = new Employee("oli", "job title", 1990, 8.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 8.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		// Assert
+		assertEquals(oli, google.getEmployee(3));
+	}
+	
+	@Test
+	public void testIfIndexIsoneAboveMaxBoundry() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 8.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 8.0, 4);
+		Employee oli = new Employee("oli", "job title", 1990, 8.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 8.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		// Assert
+		assertThrows(IllegalArgumentException.class, ()->{
+			google.getEmployee(5);
+		});
+	}
+}
