@@ -1,0 +1,249 @@
+package edu.westga.cs1301.business.test.employee;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+import edu.westga.cs1301.business.model.Company;
+import edu.westga.cs1301.business.model.Employee;
+/**
+ * this test makes sure that when looking for a specific
+ * rating that the right people are found
+ * 
+ * @author jb00645
+ *
+ */
+class TestEmployeesWithGivenRating {
+
+	@Test
+	public void testIfRatingHasOneEmployeeMatchingBeginning() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 2);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 3);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 5);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		ArrayList<Employee> actual = new ArrayList<>();
+		actual.add(jacob);
+		//Assert
+		assertEquals(actual, google.listOfAllEmployeesWithRatingGiven(2));
+	}
+	
+	@Test
+	public void testIfRatingHasOneEmployeeMatchingMiddle() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 2);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 3);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 5);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		ArrayList<Employee> actual = new ArrayList<>();
+		actual.add(jax);
+		//Assert
+		assertEquals(actual, google.listOfAllEmployeesWithRatingGiven(3));
+	}
+
+	@Test
+	public void testIfRatingHasOneEmployeeMatchingEnd() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 2);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 3);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 4);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 5);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		ArrayList<Employee> actual = new ArrayList<>();
+		actual.add(mac);
+		//Assert
+		assertEquals(actual, google.listOfAllEmployeesWithRatingGiven(5));
+	}
+	
+	@Test
+	public void testIfRatingHasMutipleEmployeeMatching() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 2);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 3);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 5);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		ArrayList<Employee> actual = new ArrayList<>();
+		actual.add(mad);
+		actual.add(oli);
+		//Assert
+		assertEquals(actual, google.listOfAllEmployeesWithRatingGiven(4));
+	}
+	
+	@Test
+	public void testIfRatingHasNoEmployeeMatching() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 2);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 2);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 5);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		ArrayList<Employee> actual = new ArrayList<>();
+		//Assert
+		assertEquals(actual, google.listOfAllEmployeesWithRatingGiven(3));
+	}
+	
+	@Test
+	public void testIfRatingHasMutipleNoEmployeeInCompany() {
+		//Arrange && Act
+		Company google = new Company("google");
+		//Assert
+		assertThrows(IllegalArgumentException.class,()->{
+			google.listOfAllEmployeesWithRatingGiven(4);
+		});
+	}
+	
+	@Test
+	public void testIfRatingIsOneBelowMinBoundry() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 2);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 3);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 5);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		ArrayList<Employee> actual = new ArrayList<>();
+		actual.add(mad);
+		actual.add(oli);
+		assertThrows(IllegalArgumentException.class,()->{
+			google.listOfAllEmployeesWithRatingGiven(0);
+		});
+	}
+	
+	@Test
+	public void testIfRatingIsOneAboveMaxBoundry() {
+		//Arrange && Act
+				Company google = new Company("google");
+				Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 2);
+				Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+				Employee jax = new Employee("jax", "job title", 1990, 12.0, 3);
+				Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+				Employee mac = new Employee("mac", "job title", 1990, 16.0, 5);
+				google.addEmployee(jacob);
+				google.addEmployee(mad);
+				google.addEmployee(jax);
+				google.addEmployee(oli);
+				google.addEmployee(mac);
+				ArrayList<Employee> actual = new ArrayList<>();
+				actual.add(mad);
+				actual.add(oli);
+		assertThrows(IllegalArgumentException.class,()->{
+			google.listOfAllEmployeesWithRatingGiven(6);
+		});
+	}
+	
+	public void testIfRatingIsMinBoundry() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 1);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 3);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 5);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		ArrayList<Employee> actual = new ArrayList<>();
+		actual.add(jacob);
+		//Assert
+		assertEquals(actual, google.listOfAllEmployeesWithRatingGiven(1));
+	}
+	
+	public void testIfRatingIsMaxBoundry() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 5);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 3);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 2);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		ArrayList<Employee> actual = new ArrayList<>();
+		actual.add(jacob);
+		//Assert
+		assertEquals(actual, google.listOfAllEmployeesWithRatingGiven(5));
+	}
+	
+	public void testIfRatingIsOneAboveMinBoundry() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 2);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 3);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 5);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		ArrayList<Employee> actual = new ArrayList<>();
+		actual.add(jacob);
+		//Assert
+		assertEquals(actual, google.listOfAllEmployeesWithRatingGiven(2));
+	}
+	
+	public void testIfRatingIsOneBelowMaxBoundry() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 2);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 3);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 2);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 5);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		ArrayList<Employee> actual = new ArrayList<>();
+		actual.add(jacob);
+		//Assert
+		assertEquals(actual, google.listOfAllEmployeesWithRatingGiven(4));
+	}	
+}
