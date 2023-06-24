@@ -1,0 +1,58 @@
+package edu.westga.cs1301.business.test.employee;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+import edu.westga.cs1301.business.model.Company;
+import edu.westga.cs1301.business.model.Employee;
+/**
+ * This test makes sure the method average hourly wage works
+ * and makes sure an empty list does not get calculated
+ * 
+ * @author jb00645
+ *
+ */
+class TestAverageHourlyWage {
+
+	@Test
+	public void testWithMutipleEmployees() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 4);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		double tempMathVar = (8.0 + 10.0 + 12.0 + 14.0 + 16.0)/5;
+		double aveHourlyWage = google.averageHourlyWage();
+		//Assert
+		assertEquals(tempMathVar, aveHourlyWage);
+	}
+	
+	@Test
+	public void testAverageHourlyWageWithOneEmployee() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		google.addEmployee(jacob);
+		double aveHourlyWage = google.averageHourlyWage();
+		//Assert
+		assertEquals(8.0, aveHourlyWage);
+	}
+
+	@Test
+	public void testAverageHourlyWageWithZeroEmployee() {
+		//Arrange && Act
+		Company google = new Company("google");
+		//Assert
+		assertThrows(IllegalArgumentException.class,()->{
+			google.averageHourlyWage();
+		});
+	}
+}
