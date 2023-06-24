@@ -1,0 +1,98 @@
+package edu.westga.cs1301.business.test.employee;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+import edu.westga.cs1301.business.model.Company;
+import edu.westga.cs1301.business.model.Employee;
+/**
+ * this test makes sure that the code for yearCompanyGrewTheMost works
+ * and give the correct year of most growth and makes sure that
+ * an empty list is thrown (code finds the first greatest growth year)
+ * 
+ * @author jb00645
+ *
+ */
+class TestGreatestGrowthThroughYears {
+
+	@Test
+	public void testWhenEmployeeSizeIsZero() {
+		Company google = new Company("google");
+		assertThrows(IllegalArgumentException.class, ()->{
+			google.yearCompanyGrewTheMost();
+		});
+	}
+	
+	@Test
+	public void testWithAllEmployeesStartSameYear() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 4);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		//Assert
+		assertEquals(1990, google.yearCompanyGrewTheMost());	
+	}
+	
+	@Test
+	public void testWhenSomeEmployeesStartSameYear() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1978, 12.0, 4);
+		Employee oli = new Employee("oli", "job title", 1980, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		//Assert
+		assertEquals(1990, google.yearCompanyGrewTheMost());	
+	}
+	
+	@Test
+	public void testWhenNoneEmployeesStartSameYear() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1998, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1995, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1993, 12.0, 4);
+		Employee oli = new Employee("oli", "job title", 1980, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		//Assert
+		assertEquals(1998, google.yearCompanyGrewTheMost());	
+	}
+	
+	@Test
+	public void testWhenSameAmountEmployeesStartDifferentYear() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1998, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1998, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1993, 12.0, 4);
+		Employee oli = new Employee("oli", "job title", 1980, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1980, 16.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		//Assert
+		assertEquals(1998, google.yearCompanyGrewTheMost());	
+	}
+}
