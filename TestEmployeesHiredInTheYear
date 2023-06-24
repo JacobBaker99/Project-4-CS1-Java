@@ -1,0 +1,128 @@
+package edu.westga.cs1301.business.test.employee;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+import edu.westga.cs1301.business.model.Company;
+import edu.westga.cs1301.business.model.Employee;
+/**
+ * this test makes sure the method employeesHiredForYear
+ * outputs the correct amount of employees that
+ * started in a given year
+ * 
+ * @author jb00645
+ *
+ */
+class TestEmployeesHiredInTheYear {
+
+	@Test
+	public void testIfYearNumIsBelowEarliestYearNumberBoundry() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 4);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		//Assert
+		assertThrows(IllegalArgumentException.class,()->{
+			google.employeesHiredForYear(1969);
+		});
+	}
+	
+	@Test
+	public void testIfYearNumHasOneYearInValueBeginning() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1989, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 4);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		//Assert
+		assertEquals(1, google.employeesHiredForYear(1989));
+	}
+	
+	@Test
+	public void testIfYearNumHasOneYearInValueMiddle() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1989, 12.0, 4);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1990, 16.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		//Assert
+		assertEquals(1, google.employeesHiredForYear(1989));
+	}
+	
+	@Test
+	public void testIfYearNumHasOneYearInValueEnd() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 4);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1989, 16.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		//Assert
+		assertEquals(1, google.employeesHiredForYear(1989));
+	}
+	
+	@Test
+	public void testIfYearNumHasMutipleYearInValue() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 4);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1989, 16.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		//Assert
+		assertEquals(4, google.employeesHiredForYear(1990));
+	}
+	
+	@Test
+	public void testIfYearNumHasZeroYearInValue() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 10.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 12.0, 4);
+		Employee oli = new Employee("oli", "job title", 1990, 14.0, 4);
+		Employee mac = new Employee("mac", "job title", 1989, 16.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		google.addEmployee(jax);
+		google.addEmployee(oli);
+		google.addEmployee(mac);
+		//Assert
+		assertEquals(0, google.employeesHiredForYear(1999));
+	}
+}
