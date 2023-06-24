@@ -1,0 +1,44 @@
+package edu.westga.cs1301.business.test.employee;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+import edu.westga.cs1301.business.model.Company;
+
+
+/**
+ * These test are to make sure the constructor for the 
+ * company class and makes sure that the name of the company
+ * is put in correctly and makes sure it fails when put in
+ * incorrectly
+ * 
+ * @author jb00645
+ *
+ */
+class TestCompanyConstructor {
+
+	@Test
+	public void testIfCompanyNameIsNull() {
+		//Assert
+		assertThrows(IllegalArgumentException.class, ()->{
+			new Company(null);
+		});
+	}
+	
+	@Test
+	public void testIfCompanyNameIsEmpty() {
+		//Assert
+		assertThrows(IllegalArgumentException.class, ()->{
+			new Company(null);
+		});
+	}
+	
+	@Test
+	public void testCompanyName() {
+		//Arrange and Act
+		Company one = new Company ("Google");
+		//Assert
+		assertEquals("Google", one.getName());
+	}
+}
