@@ -1,0 +1,67 @@
+package edu.westga.cs1301.business.test.employee;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+import edu.westga.cs1301.business.model.Company;
+import edu.westga.cs1301.business.model.Employee;
+
+/**
+ * Test adding Employees in the company class
+ * and makes sure that it checks for inccorrect actions
+ * 
+ * @author jb00645
+ *
+ */
+class TestAddEmployee {
+
+	@Test
+	public void testIfTheEmployeeIsNull() {
+		//Arrange && Act
+		Company google = new Company("google");
+		//Assert
+		assertThrows(IllegalArgumentException.class, ()->{
+			google.addEmployee(null);
+		});
+	}
+	
+	@Test
+	public void testAddingOneEmployee() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		//Assert
+		assertTrue(google.addEmployee(jacob));
+		assertEquals(1, google.getEmployeeList().size());
+	}
+	
+	@Test
+	public void testAddingMutipleEmployee() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 8.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 8.0, 4);
+		//Assert
+		assertTrue(google.addEmployee(jacob));
+		assertTrue(google.addEmployee(mad));
+		assertTrue(google.addEmployee(jax));
+		assertEquals(3, google.getEmployeeList().size());
+	}
+	
+	@Test
+	public void testAddingEmployeeToPreExistingList() {
+		//Arrange && Act
+		Company google = new Company("google");
+		Employee jacob = new Employee("jacob", "job title", 1990, 8.0, 4);
+		Employee mad = new Employee("mad", "job title", 1990, 8.0, 4);
+		Employee jax = new Employee("jax", "job title", 1990, 8.0, 4);
+		google.addEmployee(jacob);
+		google.addEmployee(mad);
+		//Assert
+		assertEquals(2,google.getEmployeeList().size());
+		assertTrue(google.addEmployee(jax));
+		assertEquals(3, google.getEmployeeList().size());
+	}
+}
